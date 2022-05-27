@@ -17,8 +17,8 @@ let cache = apicache.middleware;
 // Rate limiting
 
 const limiter = rateLimit({
-  windowMs: 3 * 60 * 1000, // 10 Mins
-  max: 5, // maximum amount of requests per 10 mins
+  windowMs: 1 * 60 * 1000, // 10 Mins
+  max: 10, // maximum amount of requests per 10 mins
 });
 
 app.use(limiter);
@@ -28,7 +28,7 @@ app.get("/", (req, res, next) => {
     res.sendFile(__dirname + "/index.html")
 })
 
-app.get("/getweather",cache("2 minutes"), async(req, res) => {
+app.get("/getweather",cache("1 minutes"), async(req, res) => {
     try {
     const params = new URLSearchParams({
       [API_BASE_KEY]: API_KEY_VALUE,
